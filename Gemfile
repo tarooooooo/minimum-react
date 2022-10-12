@@ -52,3 +52,5 @@ group :development do
   gem 'sass-rails'
 end
 gem 'sprockets', '~> 3.7.2'
+
+gem "rack-cors"
