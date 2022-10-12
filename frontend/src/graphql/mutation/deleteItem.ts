@@ -1,11 +1,9 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-  query items {
-    items {
+  mutation deleteItem($id: ID!) {
+    deleteItem(input: { id: $id }) {
       id
-      name
-      price
     }
   }
 `;
