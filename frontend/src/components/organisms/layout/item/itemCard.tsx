@@ -4,11 +4,12 @@ import { memo, ReactNode, VFC } from "react";
 type Props = {
   imageUrl: string;
   itemName: string;
-  itemPrice: string;
+  itemPrice: number | null | undefined;
+  onClick: () => void;
 };
 
 export const ItemCard: VFC<Props> = memo((props: Props) => {
-  const { imageUrl, itemName ,itemPrice } = props;
+  const { imageUrl, itemName ,itemPrice, onClick } = props;
 
   return (
     <Box 
@@ -19,6 +20,7 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
         shadow="md"
         p={4}
         _hover={{cursor: "pointer", opacity: 0.8 }}
+        onClick={onClick}
         >
           <Stack textAlign="center">
             <Image 
