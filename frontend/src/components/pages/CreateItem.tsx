@@ -1,6 +1,8 @@
 import { Box, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import { memo, useState, VFC } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCreateItemMutation } from "../../graphql/generated";
+import { useMessage } from "../../hooks/useMessage";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const CreateItem: VFC = memo(() => {
@@ -11,10 +13,14 @@ export const CreateItem: VFC = memo(() => {
     let changeValue: number = Number(e.target.value);
     setPrice(changeValue);
   };
+  const { showMessage } = useMessage();
+  const navigate = useNavigate();
   const onClickCreateItem= () => {
     createItem({ variables: { params: { name: name, price: price } } });
     setName("");
     setPrice(1000);
+    showMessage({title: "アイテムを追加しました", status: "success"});
+    navigate('/home/item_management');
   };
 
   return (
