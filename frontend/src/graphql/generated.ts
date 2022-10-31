@@ -131,10 +131,17 @@ export type UpdateItemMutationVariables = Exact<{
 
 export type UpdateItemMutation = { __typename?: 'Mutation', updateItem?: { __typename?: 'UpdateItemPayload', item: { __typename?: 'Item', id: string, name: string, price?: number | null } } | null };
 
+export type ItemQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: string, name: string, price?: number | null } };
+
 export type ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null }> };
+export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, createdAt: any, updatedAt: any }> };
 
 
 export const CreateItemDocument = gql`
@@ -245,12 +252,51 @@ export function useUpdateItemMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateItemMutationHookResult = ReturnType<typeof useUpdateItemMutation>;
 export type UpdateItemMutationResult = Apollo.MutationResult<UpdateItemMutation>;
 export type UpdateItemMutationOptions = Apollo.BaseMutationOptions<UpdateItemMutation, UpdateItemMutationVariables>;
+export const ItemDocument = gql`
+    query Item($id: ID!) {
+  item(id: $id) {
+    id
+    name
+    price
+  }
+}
+    `;
+
+/**
+ * __useItemQuery__
+ *
+ * To run a query within a React component, call `useItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useItemQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useItemQuery(baseOptions: Apollo.QueryHookOptions<ItemQuery, ItemQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ItemQuery, ItemQueryVariables>(ItemDocument, options);
+      }
+export function useItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ItemQuery, ItemQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ItemQuery, ItemQueryVariables>(ItemDocument, options);
+        }
+export type ItemQueryHookResult = ReturnType<typeof useItemQuery>;
+export type ItemLazyQueryHookResult = ReturnType<typeof useItemLazyQuery>;
+export type ItemQueryResult = Apollo.QueryResult<ItemQuery, ItemQueryVariables>;
 export const ItemsDocument = gql`
     query items {
   items {
     id
     name
     price
+    createdAt
+    updatedAt
   }
 }
     `;
