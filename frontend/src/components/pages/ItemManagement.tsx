@@ -10,10 +10,9 @@ import { useSelectItem } from "../../hooks/useSelectItem";
 
 export const ItemManagement: VFC = memo(() => {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const onClickItem = useCallback((id: string) =>{
+  const onClickItem = (id: string) =>{
     onSelectItem({ id, items, onOpen })
-  },
-  []);
+  };
   const navigate = useNavigate();
   const onClickCreateItem = useCallback(() => navigate('/home/create_item'), []);
   const { onSelectItem, selectedItem } = useSelectItem();
