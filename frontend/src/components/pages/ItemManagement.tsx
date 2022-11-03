@@ -1,16 +1,21 @@
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, useDisclosure, Wrap, WrapItem, Text, Button, Flex, Link } from "@chakra-ui/react";
+import { useDisclosure, Wrap, WrapItem, Flex, Link } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
 import { ItemCard } from "../organisms/layout/item/itemCard";
 import { useItemsQuery } from "../../graphql/generated";
 import { useNavigate } from "react-router-dom";
+import { ItemDetail } from "../organisms/layout/item/ItemDetails";
+import { useSelectItem } from "../../hooks/useSelectItem";
 
 export const ItemManagement: VFC = memo(() => {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const onClickItem = useCallback(() => onOpen(), [isOpen]);
+  const onClickItem = (id: string) =>{
+    onSelectItem({ id, items, onOpen })
+  };
   const navigate = useNavigate();
   const onClickCreateItem = useCallback(() => navigate('/home/create_item'), []);
+  const { onSelectItem, selectedItem } = useSelectItem();
 
   const { data: {items = [] } = {} } = useItemsQuery();
   return (
@@ -23,23 +28,11 @@ export const ItemManagement: VFC = memo(() => {
       <Wrap p={{ base: 4, md: 10 }}>
         {items.map((item) => (
           <WrapItem key={item.id} mx="auto">
-            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem}></ItemCard>
+            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>
           </WrapItem>      
         ))}
       </Wrap>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>アイテム詳細</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Stack>
-             <Text>アイテム名</Text>
-             <Text>100円</Text>
-            </Stack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <ItemDetail isOpen={isOpen} onClose={onClose} item={selectedItem!} />
     </>
   );
 });

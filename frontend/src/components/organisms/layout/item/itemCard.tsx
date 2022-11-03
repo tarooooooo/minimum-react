@@ -2,14 +2,15 @@ import { Stack, Image, Text, Box } from "@chakra-ui/react";
 import { memo, ReactNode, VFC } from "react";
 
 type Props = {
+  id: string;
   imageUrl: string;
   itemName: string;
   itemPrice: number | null | undefined;
-  onClick: () => void;
+  onClick: (id: string) => void;
 };
 
 export const ItemCard: VFC<Props> = memo((props: Props) => {
-  const { imageUrl, itemName ,itemPrice, onClick } = props;
+  const { imageUrl, itemName ,itemPrice, onClick, id } = props;
 
   return (
     <Box 
@@ -20,19 +21,19 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
         shadow="md"
         p={4}
         _hover={{cursor: "pointer", opacity: 0.8 }}
-        onClick={onClick}
-        >
-          <Stack textAlign="center">
-            <Image 
-              borderRadius="full" 
-              boxSize="160px" 
-              src={imageUrl}
-              alt={itemName}
-              m="auto"
-             />
-             <Text fontSize="lg" fontWeight="bold">{itemName}</Text>
-             <Text fontSize="sm" color="gray">{itemPrice}円</Text>
-          </Stack>
-        </Box>
+        onClick= {() => onClick(id)}
+    >
+      <Stack textAlign="center">
+        <Image 
+          borderRadius="full" 
+          boxSize="160px" 
+          src={imageUrl}
+          alt={itemName}
+          m="auto"
+        />
+        <Text fontSize="lg" fontWeight="bold">{itemName}</Text>
+        <Text fontSize="sm" color="gray">{itemPrice}円</Text>
+      </Stack>
+    </Box>
   );
 });

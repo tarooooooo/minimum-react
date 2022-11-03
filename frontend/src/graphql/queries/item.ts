@@ -1,13 +1,11 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-  query items {
-    items {
+query Item($id: ID!) {
+    item(id: $id){
       id
       name
       price
-      createdAt
-      updatedAt
     }
   }
 `;
