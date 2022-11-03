@@ -25,8 +25,8 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
     >
       <Stack textAlign="center">
         <Image 
-          borderRadius="full" 
-          boxSize="160px" 
+          rounded='lg'
+          boxSize="170px"
           src={imageUrl}
           alt={itemName}
           m="auto"

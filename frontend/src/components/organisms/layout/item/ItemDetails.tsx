@@ -32,6 +32,13 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
         <ModalCloseButton />
         <ModalBody>
           <Stack>
+            <Image 
+              rounded='lg'
+              boxSize="300px" 
+              src="https://source.unsplash.com/random"
+              alt={item?.name}
+              m="auto"
+            />
             <Text>{item?.name}</Text>
             <Text>{item?.price}円</Text>    
             <ConfirmButton onClick={onClickDeleteItem} disabled={item?.id === ""}>削除</ConfirmButton>
