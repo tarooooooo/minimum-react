@@ -6,6 +6,10 @@ import { NotFound } from "../components/pages/NotFound";
 
 export const homeRoutes = [
   {
+    path: "",
+    children: <Home/>
+  },
+  {
     path: "item_management",
     children: <ItemManagement />
   },

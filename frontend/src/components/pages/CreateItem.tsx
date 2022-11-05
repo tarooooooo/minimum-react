@@ -35,6 +35,8 @@ export const CreateItem: VFC = memo(() => {
             <Input placeholder='アイテム名' mb={2} value={name} onChange={(e) => setName(e.target.value)}/>
             <FormLabel>値段</FormLabel>
             <Input type="number" placeholder='値段' mb={2} value={price} onChange={changelineLength}/>
+            <FormLabel>値段</FormLabel>
+            <Input type="number" placeholder='値段' mb={2} value={price} onChange={changelineLength}/>
             <Text textAlign="center">
               <PrimaryButton onClick={onClickCreateItem}>Create!</PrimaryButton>
             </Text>
