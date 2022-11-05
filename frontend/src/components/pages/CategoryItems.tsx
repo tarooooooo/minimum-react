@@ -1,4 +1,7 @@
-import { useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useCategoryQuery } from "../../graphql/generated";
+
+import { useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Heading, Divider, Button, Box } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -8,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ItemDetail } from "../organisms/layout/item/ItemDetails";
 import { useSelectItem } from "../../hooks/useSelectItem";
 
-export const ItemManagement: VFC = memo(() => {
+export const CategoryItems: VFC = memo(() => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const onClickItem = (id: string) =>{
     onSelectItem({ id, items, onOpen })
@@ -20,6 +23,10 @@ export const ItemManagement: VFC = memo(() => {
   const { data: {items = [] } = {} } = useItemsQuery();
   const { data: {categories = [] } = {} } = useCategoriesQuery();
   const onClickCategory = useCallback((id: string) => {navigate(`/home/category/${id}`)}, []);
+
+  const { id } = useParams();
+  const { data: categoryData } = useCategoryQuery({ variables: { id: id! }})
+  const selectedItems = categoryData?.category.items
 
   return (
     <>
@@ -41,9 +48,9 @@ export const ItemManagement: VFC = memo(() => {
         </Link>
       </Flex>
       <Wrap p={{ base: 4, md: 10 }}>
-        {items.map((item) => (
-          <WrapItem key={item.id} mx="auto">
-            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>
+        {selectedItems?.nodes?.map((item) => (
+          <WrapItem key={item!.id} mx="auto">
+            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item!.name} itemPrice={item!.price} onClick={onClickItem} id={item!.id}></ItemCard>
           </WrapItem>      
         ))}
       </Wrap>

@@ -6,6 +6,7 @@ query Item($id: ID!) {
       id
       name
       price
+      categoryId
     }
   }
 `;

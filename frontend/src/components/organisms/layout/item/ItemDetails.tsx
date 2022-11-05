@@ -21,9 +21,6 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
     showMessage({title: "アイテムを削除しました", status: "error"});
   };
 
-  console.log(isOpen);
-  console.log(item);
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
