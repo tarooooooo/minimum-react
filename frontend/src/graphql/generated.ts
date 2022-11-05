@@ -65,6 +65,7 @@ export type DeleteItemPayload = {
 
 export type Item = {
   __typename?: 'Item';
+  categoryId: Scalars['ID'];
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -73,6 +74,7 @@ export type Item = {
 };
 
 export type ItemAttributes = {
+  categoryId: Scalars['ID'];
   name: Scalars['String'];
   price?: InputMaybe<Scalars['Int']>;
 };
@@ -171,7 +173,7 @@ export type CreateItemMutationVariables = Exact<{
 }>;
 
 
-export type CreateItemMutation = { __typename?: 'Mutation', createItem?: { __typename?: 'CreateItemPayload', item: { __typename?: 'Item', id: string, name: string, price?: number | null } } | null };
+export type CreateItemMutation = { __typename?: 'Mutation', createItem?: { __typename?: 'CreateItemPayload', item: { __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string } } | null };
 
 export type DeleteItemMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -186,7 +188,7 @@ export type UpdateItemMutationVariables = Exact<{
 }>;
 
 
-export type UpdateItemMutation = { __typename?: 'Mutation', updateItem?: { __typename?: 'UpdateItemPayload', item: { __typename?: 'Item', id: string, name: string, price?: number | null } } | null };
+export type UpdateItemMutation = { __typename?: 'Mutation', updateItem?: { __typename?: 'UpdateItemPayload', item: { __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string } } | null };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -205,12 +207,12 @@ export type ItemQueryVariables = Exact<{
 }>;
 
 
-export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: string, name: string, price?: number | null } };
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string } };
 
 export type ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, createdAt: any, updatedAt: any }> };
+export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string, createdAt: any, updatedAt: any }> };
 
 
 export const CreateItemDocument = gql`
@@ -220,6 +222,7 @@ export const CreateItemDocument = gql`
       id
       name
       price
+      categoryId
     }
   }
 }
@@ -290,6 +293,7 @@ export const UpdateItemDocument = gql`
       id
       name
       price
+      categoryId
     }
   }
 }
@@ -412,6 +416,7 @@ export const ItemDocument = gql`
     id
     name
     price
+    categoryId
   }
 }
     `;
@@ -449,6 +454,7 @@ export const ItemsDocument = gql`
     id
     name
     price
+    categoryId
     createdAt
     updatedAt
   }
