@@ -1,4 +1,4 @@
-import { useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -23,9 +23,18 @@ export const ItemManagement: VFC = memo(() => {
 
   return (
     <>
-      {categories.map((category, index) => {
-        return (<Link key={index} onClick={() => onClickCategory(category.id)}>{category.name}</Link>)
-      })}
+      <Flex justifyContent="center" mt={3}>
+        {categories.map((category, index) => {
+          return (
+            <Button colorScheme='teal' variant='outline' textAlign="center" mx={1} my={5} backgroundColor='white'>
+              <Link key={index} onClick={() => onClickCategory(category.id)} style={{ textDecoration: 'none' }}>
+                {category.name}
+              </Link>
+            </Button> 
+          )
+        })}
+      </Flex>
+      <Divider my={4} />
       <Flex minWidth='max-content' justifyContent='right' gap='2'>
         <Link>
           <AiFillPlusCircle color="gray" size="3rem" onClick={onClickCreateItem} />

@@ -7,9 +7,5 @@ module ObjectTypes
     field :items, ObjectTypes::Item.connection_type, null: true, max_page_size: 300
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-
-    def items
-      object.items
-    end
   end
 end
