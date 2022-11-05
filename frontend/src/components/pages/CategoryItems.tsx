@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ItemDetail } from "../organisms/layout/item/ItemDetails";
 import { useSelectItem } from "../../hooks/useSelectItem";
 
-export const UrlParameter: VFC = memo(() => {
+export const CategoryItems: VFC = memo(() => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const onClickItem = (id: string) =>{
     onSelectItem({ id, items, onOpen })

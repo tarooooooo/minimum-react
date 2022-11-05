@@ -1,6 +1,6 @@
 import { Home } from "../components/pages/Home";
 import { ItemManagement } from "../components/pages/ItemManagement";
-import { UrlParameter } from "../components/pages/UrlParameter";
+import { CategoryItems } from "../components/pages/CategoryItems";
 import { NotFound } from "../components/pages/NotFound";
 
 export const categoryRoutes = [
@@ -10,7 +10,7 @@ export const categoryRoutes = [
   },
   {
     path: ":id",
-    children: <UrlParameter/>
+    children: <CategoryItems/>
   },
   {
     path: "*",
