@@ -7,5 +7,7 @@ module Types
     field :item, resolver: Queries::Item
     field :category, resolver: Queries::Category
     field :categories, resolver: Queries::Categories
+    field :item_stock_management, resolver: Queries::ItemStockManagement
+    field :item_stock_managements, resolver: Queries::ItemStockManagements
   end
 end
