@@ -11,7 +11,7 @@ import {
 } from "@apollo/client";
 
 const link = createHttpLink({
-  uri: "https://minimum-react.herokuapp.com",
+  uri: "https://minimum-react.herokuapp.com/graphql",
   credentials: "include",
 });
 
