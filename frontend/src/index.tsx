@@ -11,7 +11,7 @@ import {
 } from "@apollo/client";
 
 const link = createHttpLink({
-  uri: "http://localhost:3000/graphql",
+  uri: process.env.REACT_APP_API || "http://localhost:3000/graphql",
   credentials: "include",
 });
 
