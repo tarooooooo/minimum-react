@@ -5,7 +5,8 @@ import {
   Heading,
   Divider,
   Input,
-  Stack
+  Stack,
+  Text
 } from "@chakra-ui/react";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
@@ -22,6 +23,8 @@ export const Login: VFC = memo(() => {
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <Heading as="h1" size="lg" textAlign="center">minimum</Heading>
         <Divider my={4} />
+        <Text fontSize='xs' color='gray'>※開発中ですのでデータの保存はできません</Text>
+        <Text fontSize='xs' color='gray'>ユーザーネームに、「1」を入力するとログインできます</Text>
         <Stack spacing={6} py={4} px={10}>
           <Input placeholder="ユーザーネーム" value={userId} onChange={onChangeUserId}/>
           <PrimaryButton onClick={onClickLogin} disabled={userId === ""} loading={loading}>ログイン</PrimaryButton>

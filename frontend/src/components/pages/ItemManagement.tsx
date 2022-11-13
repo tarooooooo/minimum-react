@@ -1,4 +1,4 @@
-import { useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button } from "@chakra-ui/react";
+import { Text, useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -23,6 +23,7 @@ export const ItemManagement: VFC = memo(() => {
 
   return (
     <>
+    <Text>アイテム一覧ページ（表示テスト）</Text>
       <Flex justifyContent="center" mt={3}>
         {categories.map((category, index) => {
           return (
