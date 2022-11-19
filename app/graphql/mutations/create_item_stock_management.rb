@@ -5,7 +5,10 @@ module Mutations
     field :item_stock_management, ObjectTypes::ItemStockManagement, null: false
 
     def resolve(params:)
-      item_stock_management = ItemStockManagement.create!(params.to_h)
+      item_stock_management = ItemStockManagement.find_or_initialize_by(category_id: params.category_id)
+      item_stock_management.update!(
+        upper_limit: params.upper_limit
+      )
 
       {item_stock_management: item_stock_management}
 

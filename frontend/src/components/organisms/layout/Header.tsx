@@ -10,7 +10,7 @@ export const Header: VFC = memo(() => {
   const navigate = useNavigate();
 
   const onClickHome = useCallback(() => navigate('/home'), []);
-  const onClickItemManagement = useCallback(() => navigate('/home/category/1'), []);
+  const onClickItemManagement = useCallback(() => navigate('/home/item_management'), []);
   const onClickSetting = useCallback(() => navigate('/home/setting'), []);
 
   return (
