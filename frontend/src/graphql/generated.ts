@@ -289,12 +289,12 @@ export type ItemStockManagementQueryVariables = Exact<{
 }>;
 
 
-export type ItemStockManagementQuery = { __typename?: 'Query', itemStockManagement: { __typename?: 'ItemStockManagement', id: string, upperLimit: number, category: { __typename?: 'Category', id: string, name: string } } };
+export type ItemStockManagementQuery = { __typename?: 'Query', itemStockManagement: { __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } } };
 
 export type ItemStockManagementsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ItemStockManagementsQuery = { __typename?: 'Query', itemStockManagements: Array<{ __typename?: 'ItemStockManagement', id: string, upperLimit: number, category: { __typename?: 'Category', id: string, name: string } }> };
+export type ItemStockManagementsQuery = { __typename?: 'Query', itemStockManagements: Array<{ __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } }> };
 
 export type ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -580,9 +580,13 @@ export const ItemStockManagementDocument = gql`
   itemStockManagement(id: $id) {
     id
     upperLimit
+    createdAt
+    updatedAt
     category {
       id
       name
+      createdAt
+      updatedAt
     }
   }
 }
@@ -620,9 +624,13 @@ export const ItemStockManagementsDocument = gql`
   itemStockManagements {
     id
     upperLimit
+    createdAt
+    updatedAt
     category {
       id
       name
+      createdAt
+      updatedAt
     }
   }
 }

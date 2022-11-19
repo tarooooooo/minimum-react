@@ -5,9 +5,13 @@ export default gql`
     itemStockManagements {
       id
       upperLimit
+      createdAt
+      updatedAt
       category {
         id
         name
+        createdAt
+        updatedAt
       }
     }
   }
