@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { memo, useState, VFC } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCategoriesQuery, useCreateItemMutation } from "../../graphql/generated";
+import { useCategoriesQuery, useCategoryQuery, useCreateItemMutation } from "../../graphql/generated";
 import { useMessage } from "../../hooks/useMessage";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
@@ -10,20 +10,32 @@ export const CreateItem: VFC = memo(() => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(1000);
   const [categoryId, setCategoryId] = useState("");
+  const { data: categoryData, refetch: refetchCategoryQuery } = useCategoryQuery({ variables: { id: categoryId }})
   const changelineLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     let changeValue: number = Number(e.target.value);
     setPrice(changeValue);
   };
   const { showMessage } = useMessage();
   const navigate = useNavigate();
+  const { data: {categories = [] } = {}, refetch: refetchCategoriesQuery } = useCategoriesQuery();
+  refetchCategoryQuery();
+  refetchCategoriesQuery();
   const onClickCreateItem= () => {
-    createItem({ variables: { params: { name: name, price: price, categoryId: categoryId } } });
-    setName("");
-    setPrice(1000);
-    showMessage({title: "アイテムを追加しました", status: "success"});
-    navigate('/home/item_management');
+    refetchCategoryQuery();
+    refetchCategoriesQuery();
+    const categoryItemCount = categoryData?.category.itemCount
+    const upperLimit = categoryData?.category.itemStockManagement?.upperLimit
+
+    if(categoryItemCount! < upperLimit!) {
+      createItem({ variables: { params: { name: name, price: price, categoryId: categoryId } } });
+      setName("");
+      setPrice(1000);
+      showMessage({title: "アイテムを追加しました", status: "success"});
+      navigate('/home/item_management');
+    } else {
+      showMessage({title: "ストック可能数以上は追加できません", status: "error"});
+    }
   };
-  const { data: {categories = [] } = {} } = useCategoriesQuery();
 
   const categorSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategoryId(e.target.value)

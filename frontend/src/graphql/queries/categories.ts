@@ -5,6 +5,10 @@ export default gql`
     categories {
       id
       name
+      itemCount
+      itemStockManagement {
+        upperLimit
+      }
       items {
         nodes {
           id
