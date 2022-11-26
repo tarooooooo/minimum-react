@@ -3,6 +3,7 @@ import { ItemManagement } from "../components/pages/ItemManagement";
 import { CreateItem } from "../components/pages/CreateItem";
 import { Setting } from "../components/pages/Setting";
 import { NotFound } from "../components/pages/NotFound";
+import { Tutorial } from "../components/pages/Tutorial";
 
 export const homeRoutes = [
   {
@@ -20,6 +21,10 @@ export const homeRoutes = [
   {
     path: "setting",
     children: <Setting />
+  },
+  {
+    path: "tutorial",
+    children: <Tutorial />
   },
   {
     path: "*",

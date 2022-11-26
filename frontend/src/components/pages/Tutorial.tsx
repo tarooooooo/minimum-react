@@ -2,7 +2,7 @@ import { memo, useCallback, VFC } from "react";
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
 
-export const NotFound: VFC = memo(() => {
+export const Tutorial: VFC = memo(() => {
   const navigate = useNavigate();
   const onClickHome = useCallback(() => navigate('/home'), []);
 
@@ -14,13 +14,10 @@ export const NotFound: VFC = memo(() => {
         size="2xl"
         bgGradient="linear(to-r, teal.400, teal.600)"
         backgroundClip="text">
-        404
+        Comming soon ...
       </Heading>
-      <Text fontSize="18px" mt={3} mb={2}>
-        Page Not Found
-      </Text>
-      <Text color={'gray.500'} mb={6}>
-        The page you're looking for does not seem to exist
+      <Text color={'gray.500'} mt={6} mb={6}>
+        こちらのページは準備中です。
       </Text>
 
       <Button
