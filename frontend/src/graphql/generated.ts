@@ -20,6 +20,8 @@ export type Category = {
   __typename?: 'Category';
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
+  itemCount?: Maybe<Scalars['Int']>;
+  itemStockManagement?: Maybe<ItemStockManagement>;
   items?: Maybe<ItemConnection>;
   name: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
@@ -268,14 +270,14 @@ export type UpdateItemMutation = { __typename?: 'Mutation', updateItem?: { __typ
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null } | null> | null } | null }> };
+export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, itemCount?: number | null, itemStockManagement?: { __typename?: 'ItemStockManagement', upperLimit: number } | null, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null } | null> | null } | null }> };
 
 export type CategoryQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type CategoryQuery = { __typename?: 'Query', category: { __typename?: 'Category', id: string, name: string, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null } | null> | null } | null } };
+export type CategoryQuery = { __typename?: 'Query', category: { __typename?: 'Category', id: string, name: string, itemCount?: number | null, itemStockManagement?: { __typename?: 'ItemStockManagement', upperLimit: number } | null, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null } | null> | null } | null } };
 
 export type ItemQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -457,6 +459,10 @@ export const CategoriesDocument = gql`
   categories {
     id
     name
+    itemCount
+    itemStockManagement {
+      upperLimit
+    }
     items {
       nodes {
         id
@@ -499,6 +505,10 @@ export const CategoryDocument = gql`
   category(id: $id) {
     id
     name
+    itemCount
+    itemStockManagement {
+      upperLimit
+    }
     items {
       nodes {
         id
