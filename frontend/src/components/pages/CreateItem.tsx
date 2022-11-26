@@ -1,12 +1,12 @@
 import { Box, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { memo, useState, VFC } from "react";
+import { memo, useEffect, useState, VFC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCategoriesQuery, useCategoryQuery, useCreateItemMutation } from "../../graphql/generated";
 import { useMessage } from "../../hooks/useMessage";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const CreateItem: VFC = memo(() => {
-  const [createItem] = useCreateItemMutation({ refetchQueries: ["items"] });
+  const [createItem] = useCreateItemMutation({ refetchQueries: ["items", "categories"] });
   const [name, setName] = useState("");
   const [price, setPrice] = useState(1000);
   const [categoryId, setCategoryId] = useState("");
@@ -16,13 +16,12 @@ export const CreateItem: VFC = memo(() => {
     setPrice(changeValue);
   };
   const { showMessage } = useMessage();
-  const navigate = useNavigate();
   const { data: {categories = [] } = {}, refetch: refetchCategoriesQuery } = useCategoriesQuery();
-  refetchCategoryQuery();
-  refetchCategoriesQuery();
-  const onClickCreateItem= () => {
-    refetchCategoryQuery();
+  useEffect(() => {
     refetchCategoriesQuery();
+  }, [categories]);
+  const navigate = useNavigate();
+  const onClickCreateItem= () => {
     const categoryItemCount = categoryData?.category.itemCount
     const upperLimit = categoryData?.category.itemStockManagement?.upperLimit
 
