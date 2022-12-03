@@ -17,9 +17,7 @@ export const CreateItem: VFC = memo(() => {
   };
   const { showMessage } = useMessage();
   const { data: {categories = [] } = {}, refetch: refetchCategoriesQuery } = useCategoriesQuery();
-  useEffect(() => {
-    refetchCategoriesQuery();
-  }, [categories]);
+
   const navigate = useNavigate();
   const onClickCreateItem= () => {
     const categoryItemCount = categoryData?.category.itemCount
