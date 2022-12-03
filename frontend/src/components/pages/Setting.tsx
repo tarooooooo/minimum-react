@@ -14,7 +14,7 @@ export const Setting: VFC = memo(() => {
   };
   const { onSelectItemStockManagement, selectedItemStockManagement } = useSelectItemStockManagement();
   const { data: { itemStockManagements = [] } = {} } = useItemStockManagementsQuery();
-  const [createItemStockManagement] = useCreateItemStockManagementMutation({ refetchQueries: ["itemStockManagements", "categories"]});
+  const [createItemStockManagement] = useCreateItemStockManagementMutation({ refetchQueries: ["itemStockManagements"]});
   const [ upperLimit, setUpperLimit ] = useState(0);
   const { showMessage } = useMessage();
   const changeUpperLimit = (e: React.ChangeEvent<HTMLInputElement>) => {
