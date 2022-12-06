@@ -9,14 +9,14 @@ export const CreateItem: VFC = memo(() => {
   const [createItem] = useCreateItemMutation({ refetchQueries: ["items", "categories"] });
   const [name, setName] = useState("");
   const [price, setPrice] = useState(1000);
-  const [categoryId, setCategoryId] = useState("");
-  const { data: categoryData, refetch: refetchCategoryQuery } = useCategoryQuery({ variables: { id: categoryId }})
+  const { data: {categories = [] } = {} } = useCategoriesQuery();
+  const [categoryId, setCategoryId] = useState(`${categories[0].id}`);
+  const { data: categoryData } = useCategoryQuery({ variables: { id: categoryId }})
   const changelineLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     let changeValue: number = Number(e.target.value);
     setPrice(changeValue);
   };
   const { showMessage } = useMessage();
-  const { data: {categories = [] } = {}, refetch: refetchCategoriesQuery } = useCategoriesQuery();
 
   const navigate = useNavigate();
   const onClickCreateItem= () => {
@@ -51,7 +51,7 @@ export const CreateItem: VFC = memo(() => {
             <FormLabel>値段</FormLabel>
             <Input type="number" placeholder='値段' mb={2} value={price} onChange={changelineLength}/>
             <FormLabel>カテゴリ</FormLabel>
-            <Select placeholder='カテゴリを選択' onChange={(e) => categorSelectChange(e)} mb={2}>
+            <Select onChange={(e) => categorSelectChange(e)} mb={2}>
               {categories.map((category) => {
                 return (<option value={category.id}>{category.name}</option>)
               })}
