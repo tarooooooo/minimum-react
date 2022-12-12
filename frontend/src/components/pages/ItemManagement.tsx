@@ -23,7 +23,6 @@ export const ItemManagement: VFC = memo(() => {
 
   return (
     <>
-    <Text>アイテム一覧ページ（表示テスト）</Text>
       <Flex justifyContent="center" mt={3}>
         {categories.map((category, index) => {
           return (

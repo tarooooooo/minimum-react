@@ -1,5 +1,5 @@
-import { useItemStockManagementsQuery, useCreateItemStockManagementMutation } from "../../graphql/generated";
-import { Button, Divider, FormControl, FormLabel, Heading, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, } from "@chakra-ui/react";
+import { useItemStockManagementsQuery, useCreateItemStockManagementMutation, useCategoriesQuery } from "../../graphql/generated";
+import {Divider, Heading, Stack, useDisclosure, } from "@chakra-ui/react";
 import { memo, useState, VFC } from "react";
 import { useMessage } from "../../hooks/useMessage";
 import React from "react";
@@ -14,6 +14,7 @@ export const Setting: VFC = memo(() => {
   };
   const { onSelectItemStockManagement, selectedItemStockManagement } = useSelectItemStockManagement();
   const { data: { itemStockManagements = [] } = {} } = useItemStockManagementsQuery();
+  const { data: {categories = [] } = {} } = useCategoriesQuery();
   const [createItemStockManagement] = useCreateItemStockManagementMutation({ refetchQueries: ["itemStockManagements", "categories"]});
   const [ upperLimit, setUpperLimit ] = useState(0);
   const { showMessage } = useMessage();
