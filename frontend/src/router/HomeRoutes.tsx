@@ -9,7 +9,7 @@ import { DiscardedItemsPage } from "../components/pages/DiscardedItemsPage";
 export const homeRoutes = [
   {
     path: "",
-    children: <Home />
+    children: <Home/>
   },
   {
     path: "item_management",
