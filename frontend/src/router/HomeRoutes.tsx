@@ -4,11 +4,12 @@ import { CreateItem } from "../components/pages/CreateItem";
 import { Setting } from "../components/pages/Setting";
 import { NotFound } from "../components/pages/NotFound";
 import { Tutorial } from "../components/pages/Tutorial";
+import { DiscardedItemsPage } from "../components/pages/DiscardedItemsPage";
 
 export const homeRoutes = [
   {
     path: "",
-    children: <Home/>
+    children: <Home />
   },
   {
     path: "item_management",
@@ -25,6 +26,10 @@ export const homeRoutes = [
   {
     path: "tutorial",
     children: <Tutorial />
+  },
+  {
+    path: "discarded_items",
+    children: <DiscardedItemsPage />
   },
   {
     path: "*",
