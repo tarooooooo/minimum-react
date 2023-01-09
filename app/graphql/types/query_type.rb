@@ -9,5 +9,6 @@ module Types
     field :categories, resolver: Queries::Categories
     field :item_stock_management, resolver: Queries::ItemStockManagement
     field :item_stock_managements, resolver: Queries::ItemStockManagements
+    field :discarded_items, resolver: Queries::DiscardedItems
   end
 end
