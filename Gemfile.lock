@@ -164,6 +164,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.5.3-x86_64-linux)
+    state_machine (1.2.0)
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.3.0)
@@ -189,6 +190,7 @@ DEPENDENCIES
   sass-rails
   sprockets (~> 3.7.2)
   sqlite3 (~> 1.4)
+  state_machine
   tzinfo-data
 
 RUBY VERSION
