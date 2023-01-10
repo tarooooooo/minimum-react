@@ -18,10 +18,11 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   alertText?: string;
+  buttonColor?: string;
 };
 
 export const ConfirmButton: VFC<Props> = memo((props) => {
-  const { children, disabled = false, loading = false, onClick, alertText } = props;
+  const { children, disabled = false, loading = false, onClick, alertText, buttonColor } = props;
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef<HTMLButtonElement>(null)
 
@@ -33,7 +34,7 @@ export const ConfirmButton: VFC<Props> = memo((props) => {
   return (
     <>
       <Button
-        colorScheme='red'
+        colorScheme={buttonColor}
         color="white"
         _hover={{ opacity: 0.8 }}
         onClick={onOpen}

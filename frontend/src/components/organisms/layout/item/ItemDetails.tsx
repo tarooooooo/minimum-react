@@ -12,7 +12,6 @@ type Props = {
 
 export const ItemDetail: VFC<Props> = memo((props: Props) => {
   const { isOpen, onClose, item } = props;
-  const [deleteItem] = useDeleteItemMutation({ refetchQueries: ["categories", "items"] });
   const [discardItem] = useDiscardItemMutation({ refetchQueries: ["categories", "items"] });
   const { showMessage } = useMessage();
 
@@ -39,7 +38,7 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
             />
             <Text>{item?.name}</Text>
             <Text>{item?.price}円</Text>    
-            <ConfirmButton onClick={onClickDiscardItem} disabled={item?.id === ""} alertText={"本当に廃棄しますか？"}>廃棄</ConfirmButton>
+            <ConfirmButton buttonColor="red" onClick={onClickDiscardItem} disabled={item?.id === ""} alertText={"本当に廃棄しますか？"}>廃棄</ConfirmButton>
           </Stack>
         </ModalBody>
       </ModalContent>
