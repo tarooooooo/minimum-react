@@ -17,10 +17,11 @@ type Props = {
   onClick: () => void;
   disabled?: boolean;
   loading?: boolean;
+  alertText?: string;
 };
 
 export const ConfirmButton: VFC<Props> = memo((props) => {
-  const { children, disabled = false, loading = false, onClick } = props;
+  const { children, disabled = false, loading = false, onClick, alertText } = props;
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef<HTMLButtonElement>(null)
 
@@ -54,7 +55,7 @@ export const ConfirmButton: VFC<Props> = memo((props) => {
           <AlertDialogHeader>確認</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            本当にアイテムを削除しますか？
+            {alertText}
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button colorScheme='red' mr={3} onClick={onClickConfirm}>
