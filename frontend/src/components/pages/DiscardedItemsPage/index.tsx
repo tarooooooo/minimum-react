@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Item } from "../../../graphql/generated";
 import { ItemCard } from "../../organisms/layout/item/itemCard";
 
+// type ItemProps = {
+//   id: string,
+//   name: string,
+//   price: number | undefined | null,
+// }
+
 // task: itemsに適切な型をつける
 export type DiscardedItemsPageProps = {
   items: any,
