@@ -12,7 +12,7 @@ type Props = {
 
 export const ItemDetail: VFC<Props> = memo((props: Props) => {
   const { isOpen, onClose, item } = props;
-  const [discardItem] = useDiscardItemMutation({ refetchQueries: ["categories", "items"] });
+  const [discardItem] = useDiscardItemMutation({ refetchQueries: ["categories", "items", "discardedItemsPage"] });
   const { showMessage } = useMessage();
 
   const onClickDiscardItem = () => {
