@@ -15,6 +15,7 @@ export const ItemManagement: VFC = memo(() => {
   };
   const navigate = useNavigate();
   const onClickCreateItem = () => navigate('/home/create_item');
+  const onClickDiscardedItem = () => navigate('/home/discarded_items');
   const { onSelectItem, selectedItem } = useSelectItem();
 
   const { data: {items = [] } = {} } = useItemsQuery();
@@ -33,6 +34,11 @@ export const ItemManagement: VFC = memo(() => {
             </Button> 
           )
         })}
+      </Flex>
+      <Flex justifyContent="right">
+        <Link onClick={onClickDiscardedItem}>
+          廃棄アイテム一覧→  
+        </Link>
       </Flex>
       <Divider my={4} />
       <Flex minWidth='max-content' justifyContent='right' gap='2'>
