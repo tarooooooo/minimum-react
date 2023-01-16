@@ -5,9 +5,11 @@ export const DiscardedItemsContainer: React.VFC = () => {
   const { data } = useDiscardedItemsPageQuery()
 
   // task: edgesからitemを取り出す処理を、hooksに切り出す
-  const items = data?.discardedItems?.edges?.map((item) => {
-    return (item?.node)
-  })
+  // const items = data?.discardedItems?.edges?.map((item) => {
+  //   return (item?.node)
+  // })
   
-  return <DiscardedItemsPage items={items!} />
+  const testItems = data?.discardedItems
+
+  return <DiscardedItemsPage items={testItems!} />
 }
