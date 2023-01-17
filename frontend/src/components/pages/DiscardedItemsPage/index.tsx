@@ -6,13 +6,6 @@ import { useSelectItem } from "../../../hooks/useSelectItem";
 import { ItemCard } from "../../organisms/layout/item/itemCard";
 import { DiscardedItemDetails} from "../../organisms/layout/item/discardedItemDetails";
 
-// type ItemProps = {
-//   id: string,
-//   name: string,
-//   price: number | undefined | null,
-// }
-
-// task: itemsに適切な型をつける
 export type DiscardedItemsPageProps = {
   items: ItemBaseFragment[],
 }
@@ -23,9 +16,9 @@ export const DiscardedItemsPage: React.VFC<DiscardedItemsPageProps> = memo(({
   const {isOpen, onOpen, onClose} = useDisclosure();
   const navigate = useNavigate();
   const onClickItemsPage = () => navigate('/home/item_management');
-  // const { onSelectItem, selectedItem } = useSelectItem();
+  const { onSelectItem, selectedItem } = useSelectItem();
   const onClickItem = (id: string) =>{
-    console.log();
+    onSelectItem({ id, items, onOpen })
   };
 
   return (
@@ -38,10 +31,12 @@ export const DiscardedItemsPage: React.VFC<DiscardedItemsPageProps> = memo(({
       <Heading color="gray" align="center" size='md' mt={5}>廃棄アイテム一覧</Heading>
       <Wrap p={{ base: 4, md: 10 }}>
         {items?.map((item: ItemBaseFragment) => (
-          <p>{item.name}</p>
+          <WrapItem key={item.id} mx="auto">
+            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>	
+          </WrapItem>
         ))}
       </Wrap>
-      {/* <DiscardedItemDetails isOpen={isOpen} onClose={onClose} item={selectedItem!} /> */}
+      <DiscardedItemDetails isOpen={isOpen} onClose={onClose} item={selectedItem!} />
     </>
   )
 });
