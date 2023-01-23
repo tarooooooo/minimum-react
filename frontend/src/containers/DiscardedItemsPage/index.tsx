@@ -4,7 +4,7 @@ import { useDiscardedItemsPageQuery } from "../../graphql/generated"
 export const DiscardedItemsContainer: React.VFC = () => {
   const { data } = useDiscardedItemsPageQuery()
   
-  const items = data?.discardedItems
+  const items = data?.discardedItems || []
 
-  return <DiscardedItemsPage items={items!} />
+  return <DiscardedItemsPage items={items} />
 }
