@@ -1,13 +1,13 @@
 import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button } from "@chakra-ui/react";
 import { memo, ReactNode, useCallback, VFC } from "react";
-import { Item, ItemBaseFragment, useDeleteItemMutation, useDiscardItemMutation } from "../../../../graphql/generated";
+import { Item, useDeleteItemMutation, useDiscardItemMutation } from "../../../../graphql/generated";
 import { useMessage } from "../../../../hooks/useMessage";
 import { ConfirmButton } from "../../../atoms/button/ConfirmButton";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  item: ItemBaseFragment | null;
+  item: Item | null;
 };
 
 export const ItemDetail: VFC<Props> = memo((props: Props) => {
