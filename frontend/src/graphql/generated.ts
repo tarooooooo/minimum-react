@@ -140,6 +140,7 @@ export type ItemStockManagement = {
   category: Category;
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
+  itemCount: Scalars['Int'];
   updatedAt: Scalars['ISO8601DateTime'];
   upperLimit: Scalars['Int'];
 };
@@ -212,7 +213,7 @@ export type Query = {
   __typename?: 'Query';
   categories: Array<Category>;
   category: Category;
-  discardedItems: ItemConnection;
+  discardedItems: Array<Item>;
   item: Item;
   itemStockManagement: ItemStockManagement;
   itemStockManagements: Array<ItemStockManagement>;
@@ -222,14 +223,6 @@ export type Query = {
 
 export type QueryCategoryArgs = {
   id: Scalars['ID'];
-};
-
-
-export type QueryDiscardedItemsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -297,6 +290,10 @@ export type UpdateItemStockManagementPayload = {
   itemStockManagement: ItemStockManagement;
 };
 
+export type ItemBaseFragment = { __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string };
+
+export type ItemStockManagementBaseFragment = { __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, itemCount: number, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } };
+
 export type CreateItemMutationVariables = Exact<{
   params: ItemAttributes;
 }>;
@@ -355,7 +352,7 @@ export type CategoryQuery = { __typename?: 'Query', category: { __typename?: 'Ca
 export type DiscardedItemsPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DiscardedItemsPageQuery = { __typename?: 'Query', discardedItems: { __typename?: 'ItemConnection', edges?: Array<{ __typename?: 'ItemEdge', node?: { __typename?: 'Item', id: string, price?: number | null, name: string } | null } | null> | null } };
+export type DiscardedItemsPageQuery = { __typename?: 'Query', discardedItems: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string }> };
 
 export type ItemQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -369,19 +366,41 @@ export type ItemStockManagementQueryVariables = Exact<{
 }>;
 
 
-export type ItemStockManagementQuery = { __typename?: 'Query', itemStockManagement: { __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } } };
+export type ItemStockManagementQuery = { __typename?: 'Query', itemStockManagement: { __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, itemCount: number, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } } };
 
 export type ItemStockManagementsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ItemStockManagementsQuery = { __typename?: 'Query', itemStockManagements: Array<{ __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } }> };
+export type ItemStockManagementsQuery = { __typename?: 'Query', itemStockManagements: Array<{ __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, itemCount: number, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } }> };
 
 export type ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string, createdAt: any, updatedAt: any }> };
 
-
+export const ItemBaseFragmentDoc = gql`
+    fragment itemBase on Item {
+  id
+  name
+  price
+  categoryId
+}
+    `;
+export const ItemStockManagementBaseFragmentDoc = gql`
+    fragment itemStockManagementBase on ItemStockManagement {
+  id
+  upperLimit
+  createdAt
+  updatedAt
+  itemCount
+  category {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+    `;
 export const CreateItemDocument = gql`
     mutation createItem($params: ItemAttributes!) {
   createItem(input: {params: $params}) {
@@ -702,16 +721,10 @@ export type CategoryQueryResult = Apollo.QueryResult<CategoryQuery, CategoryQuer
 export const DiscardedItemsPageDocument = gql`
     query discardedItemsPage {
   discardedItems {
-    edges {
-      node {
-        id
-        price
-        name
-      }
-    }
+    ...itemBase
   }
 }
-    `;
+    ${ItemBaseFragmentDoc}`;
 
 /**
  * __useDiscardedItemsPageQuery__
@@ -742,13 +755,10 @@ export type DiscardedItemsPageQueryResult = Apollo.QueryResult<DiscardedItemsPag
 export const ItemDocument = gql`
     query Item($id: ID!) {
   item(id: $id) {
-    id
-    name
-    price
-    categoryId
+    ...itemBase
   }
 }
-    `;
+    ${ItemBaseFragmentDoc}`;
 
 /**
  * __useItemQuery__
@@ -780,19 +790,10 @@ export type ItemQueryResult = Apollo.QueryResult<ItemQuery, ItemQueryVariables>;
 export const ItemStockManagementDocument = gql`
     query ItemStockManagement($id: ID!) {
   itemStockManagement(id: $id) {
-    id
-    upperLimit
-    createdAt
-    updatedAt
-    category {
-      id
-      name
-      createdAt
-      updatedAt
-    }
+    ...itemStockManagementBase
   }
 }
-    `;
+    ${ItemStockManagementBaseFragmentDoc}`;
 
 /**
  * __useItemStockManagementQuery__
@@ -824,19 +825,10 @@ export type ItemStockManagementQueryResult = Apollo.QueryResult<ItemStockManagem
 export const ItemStockManagementsDocument = gql`
     query itemStockManagements {
   itemStockManagements {
-    id
-    upperLimit
-    createdAt
-    updatedAt
-    category {
-      id
-      name
-      createdAt
-      updatedAt
-    }
+    ...itemStockManagementBase
   }
 }
-    `;
+    ${ItemStockManagementBaseFragmentDoc}`;
 
 /**
  * __useItemStockManagementsQuery__

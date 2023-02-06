@@ -1,20 +1,13 @@
 import { WrapItem, Wrap, Heading, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Item } from "../../../graphql/generated";
+import { Item, ItemBaseFragment } from "../../../graphql/generated";
 import { useSelectItem } from "../../../hooks/useSelectItem";
 import { ItemCard } from "../../organisms/layout/item/itemCard";
 import { DiscardedItemDetails} from "../../organisms/layout/item/discardedItemDetails";
 
-// type ItemProps = {
-//   id: string,
-//   name: string,
-//   price: number | undefined | null,
-// }
-
-// task: itemsに適切な型をつける
 export type DiscardedItemsPageProps = {
-  items: any,
+  items: ItemBaseFragment[],
 }
 
 export const DiscardedItemsPage: React.VFC<DiscardedItemsPageProps> = memo(({
@@ -37,9 +30,9 @@ export const DiscardedItemsPage: React.VFC<DiscardedItemsPageProps> = memo(({
       </Flex>
       <Heading color="gray" align="center" size='md' mt={5}>廃棄アイテム一覧</Heading>
       <Wrap p={{ base: 4, md: 10 }}>
-        {items?.map((item: Item, index: number) => (
+        {items?.map((item: ItemBaseFragment) => (
           <WrapItem key={item.id} mx="auto">
-            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>
+            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>	
           </WrapItem>
         ))}
       </Wrap>
