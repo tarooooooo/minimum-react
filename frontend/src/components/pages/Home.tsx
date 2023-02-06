@@ -21,13 +21,17 @@ export const Home: VFC = memo(() => {
   const onClickTutorial = useCallback(() => navigate('/home/tutorial'), []);
   const { data: { itemStockManagements = [] } = {} } = useItemStockManagementsQuery();
 
-  const all_stocked_items = itemStockManagements.map((itemStockManagement) => {
-    itemStockManagement.itemCount
+  let all_stocked_items: number = 0;
+  let all_setting_stock_management_count: number = 0;
+  itemStockManagements.map((itemStockManagement) => {
+    all_stocked_items += itemStockManagement.itemCount
+    all_setting_stock_management_count += itemStockManagement.upperLimit
   })
+
+  const progress = Math.floor(all_stocked_items / all_setting_stock_management_count * 100)
 
   return (
     <>
-    <AchievementProgress progress={50} />
     <Container maxW={'3xl'}>
       <Stack
         as={Box}
@@ -46,6 +50,7 @@ export const Home: VFC = memo(() => {
           あなたのclosetを可視化して管理します。<br />
           登録できるアイテム数を制限することにより不要な衣類が増えないようにサポートします。
         </Text>
+        <AchievementProgress progress={progress} />
         <Stack
           direction={'column'}
           spacing={3}
