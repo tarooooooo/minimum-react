@@ -4,7 +4,7 @@ module Queries
     type [ObjectTypes::Item], null: false
 
     def resolve
-      ::Item.all.order(:id)
+      ::Item.active.order(:id)
     end
   end
 end
