@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  has_many :items
+  has_many :items, -> { active }
   # ユーザーが追加されたら、has_manyに変更
   has_one :item_stock_management, dependent: :destroy
 
