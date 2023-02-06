@@ -1,4 +1,4 @@
-import { memo, useCallback, VFC } from "react";
+import { memo, useCallback, useMemo, VFC } from "react";
 import {
   Box,
   Heading,
@@ -11,14 +11,23 @@ import {
   createIcon,
 } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
+import { AchievementProgress } from "../organisms/layout/AchievementProgress";
+import { useItemStockManagementsQuery } from "../../graphql/generated";
+
 
 export const Home: VFC = memo(() => {
   const navigate = useNavigate();
-
   const onClickSetting = useCallback(() => navigate('/home/setting'), []);
   const onClickTutorial = useCallback(() => navigate('/home/tutorial'), []);
+  const { data: { itemStockManagements = [] } = {} } = useItemStockManagementsQuery();
+
+  const all_stocked_items = itemStockManagements.map((itemStockManagement) => {
+    itemStockManagement.itemCount
+  })
+
   return (
     <>
+    <AchievementProgress progress={50} />
     <Container maxW={'3xl'}>
       <Stack
         as={Box}
