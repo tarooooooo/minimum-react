@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
 import { ItemStockManagement } from "../graphql/generated";
+import { ItemStockManagementBaseFragment } from "../graphql/generated";
 
 type Props = {
   id: string;
-  itemStockManagements:  Array<ItemStockManagement>;
+  itemStockManagements: ItemStockManagementBaseFragment[];
   onOpen: () => void;
 }
 
