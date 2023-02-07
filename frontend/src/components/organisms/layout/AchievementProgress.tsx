@@ -3,12 +3,15 @@ import { memo } from "react";
 
 type Props = {
   progress: number;
+  outerR: number;
+  strokeWidth: number;
 }
 
 export const AchievementProgress = memo((props: Props) => {
-  const { progress } = props;
-  const outerR = 100;
-  const strokeWidth = 15;
+  const { progress, outerR, strokeWidth } = props;
+
+  const size: number = outerR * 2;
+
 
   const r: number = outerR - strokeWidth / 2;
   const circumference: number = 2 * Math.PI * r;
@@ -18,28 +21,28 @@ export const AchievementProgress = memo((props: Props) => {
       <Box position="relative" width="100%" height="400px" margin="auto">
         <Box position="absolute" right="14%" top="10%">
           <svg
-            viewBox="0 0 250 250"
-            width="450"
-            height="450"
+            viewBox={`0 0 ${size} ${size}`}
+            width={size}
+            height={size}
           >
             <circle
-              cx="100"
-              cy="100"
+              cx={outerR}
+              cy={outerR}
               r={r}
               stroke="gray"
-              stroke-width="15"
+              stroke-width={strokeWidth}
               fill="none"
               id="circle"
             />
             <circle
-              cx="100"
-              cy="100"
+              cx={outerR}
+              cy={outerR}
               r={r}
               stroke="blue"
-              stroke-width="15"
+              stroke-width={strokeWidth}
               fill="none"
               id="circle"
-              transform={`rotate(-90 100 100)`}
+              transform={`rotate(-90 ${outerR} ${outerR})`}
               style={{
                 strokeDasharray: circumference,
                 strokeDashoffset: dashoffset

@@ -50,7 +50,7 @@ export const Home: VFC = memo(() => {
           あなたのclosetを可視化して管理します。<br />
           登録できるアイテム数を制限することにより不要な衣類が増えないようにサポートします。
         </Text>
-        <AchievementProgress progress={progress} />
+        <AchievementProgress progress={progress} outerR={180} strokeWidth={20} />
         <Stack
           direction={'column'}
           spacing={3}
