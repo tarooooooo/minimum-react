@@ -9,6 +9,7 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  Divider,
 } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
 import { AchievementProgress } from "../organisms/layout/AchievementProgress";
@@ -50,7 +51,46 @@ export const Home: VFC = memo(() => {
           あなたのclosetを可視化して管理します。<br />
           登録できるアイテム数を制限することにより不要な衣類が増えないようにサポートします。
         </Text>
-        <AchievementProgress progress={progress} outerR={180} strokeWidth={20} />
+        <Box display="flex">
+
+          <Box position="relative" width="100%">
+            <AchievementProgress progress={progress} outerR={150} strokeWidth={20} color="teal" />
+            <Box position="absolute" top="25%" right="39%">
+              <Text fontSize="80px">{progress}%</Text>
+              <Text fontSize='s' color="gray">全クローゼット使用率</Text>
+              <Divider borderColor="gray" borderBottomWidth="2px" />
+            </Box>
+          </Box>
+          <Box>
+            <Box position="relative" width="100%">
+              <Text>inner</Text>
+              <AchievementProgress progress={progress} outerR={70} strokeWidth={10} color="blue" />
+              <Box position="absolute" top="43%" right="47%">
+                <Text fontSize="30px">
+                  1/2
+                </Text>
+              </Box>
+            </Box>
+            <Box position="relative" width="100%">
+              <Text>outer</Text>
+              <AchievementProgress progress={progress} outerR={70} strokeWidth={10} color="red" />
+              <Box position="absolute" top="43%" right="47%">
+                <Text fontSize="30px">
+                  1/5
+                </Text>
+              </Box>
+            </Box>
+            <Box position="relative" width="100%">
+              <Text>bottom</Text>
+              <AchievementProgress progress={progress} outerR={70} strokeWidth={10} color="green" />
+              <Box position="absolute" top="43%" right="47%">
+                <Text fontSize="30px">
+                  1/2
+                </Text>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
         <Stack
           direction={'column'}
           spacing={3}
