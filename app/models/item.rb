@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  mount_base64_uploader :image, ItemImageUploader
   belongs_to :category
 
   scope :active, -> {where(state: :active)}
