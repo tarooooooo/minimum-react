@@ -32,7 +32,7 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
             <Image 
               rounded='lg'
               boxSize="300px" 
-              src="https://source.unsplash.com/random"
+              src={`data:image/png;base64,${item?.image}`}
               alt={item?.name}
               m="auto"
             />

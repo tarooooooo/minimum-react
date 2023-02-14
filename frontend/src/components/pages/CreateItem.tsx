@@ -26,14 +26,7 @@ export const CreateItem: VFC = memo(() => {
     
 
     if(categoryItemCount! < upperLimit!) {
-      createItem({ variables: { params: { name: name, price: price, categoryId: categoryId } } });
-      if (!file) {
-        return
-      }
-      const formData = new FormData()
-      formData.append("file", file)
-      
-      
+      createItem({ variables: { params: { name: name, price: price, categoryId: categoryId, image: image } } });
       setName("");
       setPrice(1000);
       showMessage({title: "アイテムを追加しました", status: "success"});
@@ -47,24 +40,21 @@ export const CreateItem: VFC = memo(() => {
     setCategoryId(e.target.value)
   }
 
-  const [file, setFile] = useState<File | null>(null)
+  const [image, setImage] = useState<string | undefined>(undefined)
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files[0]) {
-      setFile(files[0])
+      const reader = new FileReader()
+      reader.readAsDataURL(files[0])
+      reader.onload = function() {
+        var image: any
+        image = reader.result;
+        setImage(image);
+      }
     }
   }
 
-  const onChangeImage = () => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file!)
-    reader.onload = function() {
-      var image: any
-      image = reader.result;
-      console.log(image)
-    }
-  }
 
   return (
     <>
@@ -87,16 +77,10 @@ export const CreateItem: VFC = memo(() => {
             <input
               name="file"
               type="file"
-              accept="image/*"
+              accept="image/png"
               onChange={onChangeFile}
             />
-            <img id="image" />
-
-
-            <Text textAlign="center">
-              <PrimaryButton onClick={onChangeImage}>テスト!</PrimaryButton>
-            </Text>
-
+            <img src={image} />
    
             <Text textAlign="center">
               <PrimaryButton onClick={onClickCreateItem}>Create!</PrimaryButton>
