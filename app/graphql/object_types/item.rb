@@ -11,9 +11,9 @@ module ObjectTypes
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     def image
+      return if object.image.blank?
       binary_data = File.read("public/#{object.image.url}")
       Base64.strict_encode64(binary_data)
-
     end
   end
 end
