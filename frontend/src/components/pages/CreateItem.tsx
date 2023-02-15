@@ -7,6 +7,7 @@ import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const CreateItem: VFC = memo(() => {
   const [createItem] = useCreateItemMutation({ refetchQueries: ["items", "categories"] });
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState(1000);
   const { data: {categories = [] } = {} } = useCategoriesQuery();
@@ -22,9 +23,10 @@ export const CreateItem: VFC = memo(() => {
   const onClickCreateItem= () => {
     const categoryItemCount = categoryData?.category.itemCount
     const upperLimit = categoryData?.category.itemStockManagement?.upperLimit
+    
 
     if(categoryItemCount! < upperLimit!) {
-      createItem({ variables: { params: { name: name, price: price, categoryId: categoryId } } });
+      createItem({ variables: { params: { name: name, price: price, categoryId: categoryId, image: image } } });
       setName("");
       setPrice(1000);
       showMessage({title: "アイテムを追加しました", status: "success"});
@@ -37,6 +39,22 @@ export const CreateItem: VFC = memo(() => {
   const categorSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategoryId(e.target.value)
   }
+
+  const [image, setImage] = useState<string | undefined>(undefined)
+
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      const reader = new FileReader()
+      reader.readAsDataURL(files[0])
+      reader.onload = function() {
+        var image: any
+        image = reader.result;
+        setImage(image);
+      }
+    }
+  }
+
 
   return (
     <>
@@ -56,6 +74,14 @@ export const CreateItem: VFC = memo(() => {
                 return (<option value={category.id}>{category.name}</option>)
               })}
             </Select>
+            <input
+              name="file"
+              type="file"
+              accept="image/png"
+              onChange={onChangeFile}
+            />
+            <img src={image} />
+   
             <Text textAlign="center">
               <PrimaryButton onClick={onClickCreateItem}>Create!</PrimaryButton>
             </Text>

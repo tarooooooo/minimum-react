@@ -32,7 +32,7 @@ export const DiscardedItemsPage: React.VFC<DiscardedItemsPageProps> = memo(({
       <Wrap p={{ base: 4, md: 10 }}>
         {items?.map((item: ItemBaseFragment) => (
           <WrapItem key={item.id} mx="auto">
-            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>	
+            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id} image={item.image!}></ItemCard>	
           </WrapItem>
         ))}
       </Wrap>

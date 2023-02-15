@@ -6,6 +6,7 @@ export default gql`
       id
       name
       price
+      image
       categoryId
       createdAt
       updatedAt

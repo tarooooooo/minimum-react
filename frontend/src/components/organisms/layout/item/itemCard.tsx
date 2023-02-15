@@ -6,11 +6,12 @@ type Props = {
   imageUrl: string;
   itemName: string;
   itemPrice: number | null | undefined;
+  image: string;
   onClick: (id: string) => void;
 };
 
 export const ItemCard: VFC<Props> = memo((props: Props) => {
-  const { imageUrl, itemName ,itemPrice, onClick, id } = props;
+  const { imageUrl, itemName ,itemPrice, onClick, id, image } = props;
 
   return (
     <Box 
@@ -27,7 +28,7 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
         <Image 
           rounded='lg'
           boxSize="170px"
-          src={imageUrl}
+          src={`data:image/png;base64,${image}`}
           alt={itemName}
           m="auto"
         />
