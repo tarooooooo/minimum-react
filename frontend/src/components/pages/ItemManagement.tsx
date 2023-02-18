@@ -1,4 +1,4 @@
-import { Text, useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button } from "@chakra-ui/react";
+import { Text, useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button, Img } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
