@@ -1,5 +1,6 @@
 import { Stack, Image, Text, Box } from "@chakra-ui/react";
 import { memo, ReactNode, VFC } from "react";
+import ItemNoImage from '../../../../assets/item/no_image.png'
 
 type Props = {
   id: string;
@@ -25,13 +26,23 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
         onClick= {() => onClick(id)}
     >
       <Stack textAlign="center">
+        {image ? (
+          <Image 
+            rounded='lg'
+            boxSize="170px"
+            src={`data:image/png;base64,${image}`}
+            alt={itemName}
+            m="auto"
+          />
+        ) : 
         <Image 
           rounded='lg'
           boxSize="170px"
-          src={`data:image/png;base64,${image}`}
+          src={ItemNoImage}
           alt={itemName}
           m="auto"
         />
+        }
         <Text fontSize="lg" fontWeight="bold">{itemName}</Text>
         <Text fontSize="sm" color="gray">{itemPrice}円</Text>
       </Stack>

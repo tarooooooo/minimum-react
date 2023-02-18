@@ -1,5 +1,5 @@
-import { Box, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { memo, useEffect, useState, VFC } from "react";
+import { Box, Button, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { memo, useEffect, useRef, useState, VFC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCategoriesQuery, useCategoryQuery, useCreateItemMutation } from "../../graphql/generated";
 import { useMessage } from "../../hooks/useMessage";
@@ -55,6 +55,12 @@ export const CreateItem: VFC = memo(() => {
     }
   }
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onClickButton = () => {
+    inputRef.current?.click();
+  };
+
 
   return (
     <>
@@ -79,9 +85,13 @@ export const CreateItem: VFC = memo(() => {
               type="file"
               accept="image/png"
               onChange={onChangeFile}
+              ref={inputRef}
+              hidden
             />
-            <img src={image} />
-   
+            <Text textAlign="center" mb={2}>
+              <Button onClick={onClickButton} mb={1}>画像を選択する</Button>
+              <img src={image} />
+            </Text>
             <Text textAlign="center">
               <PrimaryButton onClick={onClickCreateItem}>Create!</PrimaryButton>
             </Text>
