@@ -38,7 +38,7 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
         <Image 
           rounded='lg'
           boxSize="170px"
-          src={ItemNoImage}
+          src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${id}/image.png`}
           alt={itemName}
           m="auto"
         />
