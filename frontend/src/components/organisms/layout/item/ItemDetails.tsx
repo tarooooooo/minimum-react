@@ -1,4 +1,4 @@
-import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button } from "@chakra-ui/react";
+import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button, Img } from "@chakra-ui/react";
 import { memo, ReactNode, useCallback, VFC } from "react";
 import { Item, ItemBaseFragment, useDeleteItemMutation, useDiscardItemMutation } from "../../../../graphql/generated";
 import { useMessage } from "../../../../hooks/useMessage";
@@ -40,12 +40,13 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
                 m="auto"
               />
             ) : 
-            <Image 
+            <Img
               rounded='lg'
               boxSize="170px"
-              src={ItemNoImage}
+              src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${item?.id}/image.png`}
               alt={item?.name}
               m="auto"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
             />
             }
             <Text>{item?.name}</Text>
