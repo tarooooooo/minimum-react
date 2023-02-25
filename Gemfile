@@ -50,6 +50,7 @@ gem 'graphql'
 group :development do
   gem 'graphiql-rails'
   gem 'sass-rails'
+  gem 'pry-rails'
 end
 gem 'sprockets', '~> 3.7.2'
 
