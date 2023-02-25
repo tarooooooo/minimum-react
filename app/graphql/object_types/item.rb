@@ -12,8 +12,8 @@ module ObjectTypes
 
     def image
       return if object.image.blank?
-      # binary_data = File.read("public/#{object.image.url}")
-      # Base64.strict_encode64(binary_data)
+      binary_data = File.read("public/#{object.image.url}")
+      Base64.strict_encode64(binary_data)
     end
   end
 end
