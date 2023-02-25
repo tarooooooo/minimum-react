@@ -4,7 +4,6 @@ import ItemNoImage from '../../../../assets/item/no_image.png'
 
 type Props = {
   id: string;
-  imageUrl: string;
   itemName: string;
   itemPrice: number | null | undefined;
   image: string;
@@ -12,7 +11,7 @@ type Props = {
 };
 
 export const ItemCard: VFC<Props> = memo((props: Props) => {
-  const { imageUrl, itemName ,itemPrice, onClick, id, image } = props;
+  const { itemName ,itemPrice, onClick, id, image } = props;
 
   return (
     <Box 

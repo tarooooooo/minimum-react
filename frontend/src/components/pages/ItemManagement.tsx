@@ -49,7 +49,7 @@ export const ItemManagement: VFC = memo(() => {
       <Wrap p={{ base: 4, md: 10 }}>
         {items.map((item) => (
           <WrapItem key={item.id} mx="auto">
-            <ItemCard imageUrl="https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/11/image.png" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id} image={item.image!}></ItemCard>
+            <ItemCard itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id} image={item.image!}></ItemCard>
           </WrapItem>      
         ))}
       </Wrap>
