@@ -1,8 +1,10 @@
-import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button } from "@chakra-ui/react";
+import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button, Img } from "@chakra-ui/react";
 import { memo, ReactNode, useCallback, VFC } from "react";
 import { Item, ItemBaseFragment, useDeleteItemMutation, useDiscardItemMutation } from "../../../../graphql/generated";
 import { useMessage } from "../../../../hooks/useMessage";
 import { ConfirmButton } from "../../../atoms/button/ConfirmButton";
+
+import ItemNoImage from '../../../../assets/item/no_image.png'
 
 type Props = {
   isOpen: boolean;
@@ -29,13 +31,24 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
         <ModalCloseButton />
         <ModalBody>
           <Stack>
-            <Image 
+            {item?.image ? (
+              <Image 
+                rounded='lg'
+                boxSize="170px"
+                src={`data:image/png;base64,${item?.image}`}
+                alt={item?.name}
+                m="auto"
+              />
+            ) : 
+            <Img
               rounded='lg'
-              boxSize="300px" 
-              src="https://source.unsplash.com/random"
+              boxSize="170px"
+              src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${item?.id}/image.png`}
               alt={item?.name}
               m="auto"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
             />
+            }
             <Text>{item?.name}</Text>
             <Text>{item?.price}円</Text>    
             <ConfirmButton buttonColor="red" onClick={onClickDiscardItem} disabled={item?.id === ""} alertText={"本当に廃棄しますか？"}>廃棄</ConfirmButton>

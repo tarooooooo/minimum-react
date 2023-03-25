@@ -50,9 +50,13 @@ gem 'graphql'
 group :development do
   gem 'graphiql-rails'
   gem 'sass-rails'
+  gem 'pry-rails'
 end
 gem 'sprockets', '~> 3.7.2'
 
 gem "rack-cors"
 gem 'mysql2'
 gem 'state_machine'
+gem 'carrierwave'
+gem 'carrierwave-base64'
+gem 'fog-aws'

@@ -1,4 +1,4 @@
-import { Text, useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button } from "@chakra-ui/react";
+import { Text, useDisclosure, Wrap, WrapItem, Flex, Link, Tabs, TabList, Tab, TabPanels, TabPanel, Divider, Button, Img, Image } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -49,7 +49,7 @@ export const ItemManagement: VFC = memo(() => {
       <Wrap p={{ base: 4, md: 10 }}>
         {items.map((item) => (
           <WrapItem key={item.id} mx="auto">
-            <ItemCard imageUrl="https://source.unsplash.com/random" itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id}></ItemCard>
+            <ItemCard itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id} image={item.image!}></ItemCard>
           </WrapItem>      
         ))}
       </Wrap>

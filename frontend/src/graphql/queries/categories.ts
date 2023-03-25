@@ -13,6 +13,7 @@ export default gql`
         nodes {
           id
           name
+          image
           price
         }
       }

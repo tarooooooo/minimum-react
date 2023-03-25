@@ -104,6 +104,7 @@ export type Item = {
   categoryId: Scalars['ID'];
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   price?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['ISO8601DateTime'];
@@ -111,6 +112,7 @@ export type Item = {
 
 export type ItemAttributes = {
   categoryId: Scalars['ID'];
+  image?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   price?: InputMaybe<Scalars['Int']>;
 };
@@ -290,7 +292,7 @@ export type UpdateItemStockManagementPayload = {
   itemStockManagement: ItemStockManagement;
 };
 
-export type ItemBaseFragment = { __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string };
+export type ItemBaseFragment = { __typename?: 'Item', id: string, name: string, price?: number | null, image?: string | null, categoryId: string };
 
 export type ItemStockManagementBaseFragment = { __typename?: 'ItemStockManagement', id: string, upperLimit: number, createdAt: any, updatedAt: any, itemCount: number, category: { __typename?: 'Category', id: string, name: string, createdAt: any, updatedAt: any } };
 
@@ -340,26 +342,26 @@ export type UpdateItemMutation = { __typename?: 'Mutation', updateItem?: { __typ
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, itemCount?: number | null, itemStockManagement?: { __typename?: 'ItemStockManagement', upperLimit: number } | null, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null } | null> | null } | null }> };
+export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, itemCount?: number | null, itemStockManagement?: { __typename?: 'ItemStockManagement', upperLimit: number } | null, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, image?: string | null, price?: number | null } | null> | null } | null }> };
 
 export type CategoryQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type CategoryQuery = { __typename?: 'Query', category: { __typename?: 'Category', id: string, name: string, itemCount?: number | null, itemStockManagement?: { __typename?: 'ItemStockManagement', upperLimit: number } | null, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null } | null> | null } | null } };
+export type CategoryQuery = { __typename?: 'Query', category: { __typename?: 'Category', id: string, name: string, itemCount?: number | null, itemStockManagement?: { __typename?: 'ItemStockManagement', upperLimit: number } | null, items?: { __typename?: 'ItemConnection', nodes?: Array<{ __typename?: 'Item', id: string, name: string, image?: string | null, price?: number | null } | null> | null } | null } };
 
 export type DiscardedItemsPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DiscardedItemsPageQuery = { __typename?: 'Query', discardedItems: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string }> };
+export type DiscardedItemsPageQuery = { __typename?: 'Query', discardedItems: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, image?: string | null, categoryId: string }> };
 
 export type ItemQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string } };
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: string, name: string, price?: number | null, image?: string | null, categoryId: string } };
 
 export type ItemStockManagementQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -376,13 +378,14 @@ export type ItemStockManagementsQuery = { __typename?: 'Query', itemStockManagem
 export type ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, categoryId: string, createdAt: any, updatedAt: any }> };
+export type ItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: string, name: string, price?: number | null, image?: string | null, categoryId: string, createdAt: any, updatedAt: any }> };
 
 export const ItemBaseFragmentDoc = gql`
     fragment itemBase on Item {
   id
   name
   price
+  image
   categoryId
 }
     `;
@@ -638,6 +641,7 @@ export const CategoriesDocument = gql`
       nodes {
         id
         name
+        image
         price
       }
     }
@@ -684,6 +688,7 @@ export const CategoryDocument = gql`
       nodes {
         id
         name
+        image
         price
       }
     }
@@ -862,6 +867,7 @@ export const ItemsDocument = gql`
     id
     name
     price
+    image
     categoryId
     createdAt
     updatedAt
