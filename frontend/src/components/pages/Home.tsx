@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, VFC } from "react";
+import { memo, useCallback, useEffect, useMemo, useState, VFC } from "react";
 import {
   Box,
   Heading,
@@ -29,7 +29,30 @@ export const Home: VFC = memo(() => {
     all_setting_stock_management_count += itemStockManagement.upperLimit
   })
 
+  
   const progress = Math.floor(all_stocked_items / all_setting_stock_management_count * 100)
+  const [calc_progress, setCalcProgress] = useState(0);
+  
+  useEffect(() => {
+    const intervalId = setTimeout(() => {
+      progressIncreases();
+    }, 20);
+    return () => clearTimeout(intervalId);
+  }, [calc_progress]);
+  
+  const progressIncreases = () => {
+    if (calc_progress >= progress) {
+      return;
+    }
+    setCalcProgress(prevProgress => {
+      const updatedValue = prevProgress + 1;
+      if (updatedValue >= progress) {
+        return progress;
+      } else {
+        return updatedValue;
+      }
+    });
+  };
 
   return (
     <>
@@ -53,10 +76,12 @@ export const Home: VFC = memo(() => {
         </Text>
         <Box display="flex">
 
+          <Button onClick={() => progressIncreases()}>count up</Button>
           <Box position="relative" width="100%">
-            <AchievementProgress progress={progress} outerR={150} strokeWidth={20} color="teal" />
+            <AchievementProgress progress={calc_progress} outerR={150} strokeWidth={20} color="teal" />
             <Box position="absolute" top="25%" right="39%">
-              <Text fontSize="80px">{progress}%</Text>
+              <Text fontSize="80px">{calc_progress}%</Text>
+            
               <Text fontSize='s' color="gray">全クローゼット使用率</Text>
               <Divider borderColor="gray" borderBottomWidth="2px" />
             </Box>
