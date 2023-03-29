@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useState, VFC } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState, VFC } from "react";
 import {
   Box,
   Heading,
@@ -76,7 +76,6 @@ export const Home: VFC = memo(() => {
         </Text>
         <Box display="flex">
 
-          <Button onClick={() => progressIncreases()}>count up</Button>
           <Box position="relative" width="100%">
             <AchievementProgress progress={calc_progress} outerR={150} strokeWidth={20} color="teal" />
             <Box position="absolute" top="25%" right="39%">
@@ -84,35 +83,6 @@ export const Home: VFC = memo(() => {
             
               <Text fontSize='s' color="gray">全クローゼット使用率</Text>
               <Divider borderColor="gray" borderBottomWidth="2px" />
-            </Box>
-          </Box>
-          <Box>
-            <Box position="relative" width="100%">
-              <Text>inner</Text>
-              <AchievementProgress progress={progress} outerR={70} strokeWidth={10} color="blue" />
-              <Box position="absolute" top="43%" right="47%">
-                <Text fontSize="30px">
-                  1/2
-                </Text>
-              </Box>
-            </Box>
-            <Box position="relative" width="100%">
-              <Text>outer</Text>
-              <AchievementProgress progress={progress} outerR={70} strokeWidth={10} color="red" />
-              <Box position="absolute" top="43%" right="47%">
-                <Text fontSize="30px">
-                  1/5
-                </Text>
-              </Box>
-            </Box>
-            <Box position="relative" width="100%">
-              <Text>bottom</Text>
-              <AchievementProgress progress={progress} outerR={70} strokeWidth={10} color="green" />
-              <Box position="absolute" top="43%" right="47%">
-                <Text fontSize="30px">
-                  1/2
-                </Text>
-              </Box>
             </Box>
           </Box>
         </Box>
