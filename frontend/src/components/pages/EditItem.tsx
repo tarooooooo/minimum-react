@@ -1,19 +1,26 @@
-import { Box, Divider, Flex, FormControl, Heading, Stack } from "@chakra-ui/react";
+import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, Button } from "@chakra-ui/react";
 import { memo, useEffect, VFC } from "react";
 import { useUpdateItemMutation } from "../../graphql/generated";
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
+import * as z from 'zod';
+import { zodRequiredString, zodRequiredNumber } from "../common/form/validations/schema";
 
-type FormData = {
-  name: string;
-  price: string;
-};
+const formSchema = z.object({
+  name: zodRequiredString('アイテム名', 100),
+  price: zodRequiredNumber('値段', 1, 1000000),
+});
+
+export type FormSchemaType = z.infer<typeof formSchema>;
 
 export const EditItem: VFC = memo(() => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
-  const onSubmit = (data: FormData) => console.log(data);
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+  });
+  const onSubmit = (data: FormSchemaType) => console.log(data);
 
   useEffect(() => {
-    reset({ name: 'アイテム名', price: "999" })
+    reset({ name: 'アイテム名初期値', price: 1000 })
   }, [])
   
   return (
@@ -24,13 +31,19 @@ export const EditItem: VFC = memo(() => {
           <Divider my={4} />
           <Stack spacing={6} py={4} px={[5, 7, 10]}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <label>アイテム名</label>
-              <input {...register('name', { required: '入力が必須の項目です' })} />
-              {errors.name?.message && <div>{errors.name.message}</div>}
-              <label>金額</label>
-              <input {...register('price', { required: '入力が必須の項目です' })} />
-              {errors.price?.message && <div>{errors.price.message}</div>}
-              <button type="submit">更新</button>
+              <FormControl isInvalid={!!errors.name}>
+                <FormLabel htmlFor="name">アイテム名</FormLabel>
+                <Input id="name" placeholder="アイテム名" {...register('name')} />
+                <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={!!errors.price}>
+                <FormLabel htmlFor="price">金額</FormLabel>
+                <Input id="price" type="number" placeholder="金額" {...register('price', {
+                  setValueAs: (value) => (value === '' ? 0 : parseInt(value)),
+                })} />
+                <FormErrorMessage>{errors.price?.message}</FormErrorMessage>
+              </FormControl>
+              <Button type="submit" colorScheme="blue" mt={4}>更新</Button>
             </form>
           </Stack>
         </Box>
