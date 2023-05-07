@@ -1,10 +1,11 @@
 import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, Button } from "@chakra-ui/react";
 import { memo, useEffect, VFC } from "react";
-import { useUpdateItemMutation } from "../../graphql/generated";
+import { useUpdateItemMutation, useItemQuery } from "../../graphql/generated";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import * as z from 'zod';
 import { zodRequiredString, zodRequiredNumber } from "../common/form/validations/schema";
+import { useNavigate, useParams } from "react-router-dom";
 
 const formSchema = z.object({
   name: zodRequiredString('アイテム名', 100),
@@ -17,12 +18,35 @@ export const EditItem: VFC = memo(() => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   });
-  const onSubmit = (data: FormSchemaType) => console.log(data);
-
-  useEffect(() => {
-    reset({ name: 'アイテム名初期値', price: 1000 })
-  }, [])
   
+  const { id } = useParams();
+  const { data: itemData } = useItemQuery({ variables: { id: id! }})
+  
+  useEffect(() => {
+    if (itemData && itemData.item) {
+      reset({ name: itemData.item.name, price: itemData.item.price ?? 1000 });
+    }
+  }, [])
+
+  const navigate = useNavigate();
+  
+  const [updateItem] = useUpdateItemMutation();
+  
+  const onSubmit = (data: FormSchemaType) => {
+    updateItem(
+      { 
+        variables:{ 
+          id: id!,
+          params: { 
+            ...data,
+            categoryId: itemData?.item.categoryId
+          }
+        }
+      }
+    )
+    navigate('/home/item_management');
+  }
+
   return (
     <>
       <Flex align="center" justify="center" mt={5}>
