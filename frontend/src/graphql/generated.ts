@@ -111,7 +111,7 @@ export type Item = {
 };
 
 export type ItemAttributes = {
-  categoryId: Scalars['ID'];
+  categoryId?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   price?: InputMaybe<Scalars['Int']>;

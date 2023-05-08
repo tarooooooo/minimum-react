@@ -1,8 +1,10 @@
-import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button, Img } from "@chakra-ui/react";
+import { Stack, Image, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Button, Img, Link, Flex } from "@chakra-ui/react";
+import { SettingsIcon } from '@chakra-ui/icons'
 import { memo, ReactNode, useCallback, VFC } from "react";
 import { Item, ItemBaseFragment, useDeleteItemMutation, useDiscardItemMutation } from "../../../../graphql/generated";
 import { useMessage } from "../../../../hooks/useMessage";
 import { ConfirmButton } from "../../../atoms/button/ConfirmButton";
+import { useNavigate } from "react-router-dom";
 
 import ItemNoImage from '../../../../assets/item/no_image.png'
 
@@ -13,6 +15,7 @@ type Props = {
 };
 
 export const ItemDetail: VFC<Props> = memo((props: Props) => {
+  const navigate = useNavigate();
   const { isOpen, onClose, item } = props;
   const [discardItem] = useDiscardItemMutation({ refetchQueries: ["categories", "items", "discardedItemsPage"] });
   const { showMessage } = useMessage();
@@ -22,6 +25,8 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
     onClose();
     showMessage({ title: `${item!.name}を廃棄しました`, status: "error"})
   }
+
+  const onClickEditItem = useCallback((id: string) => navigate(`/home/item/edit/${id}`), []);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -50,8 +55,11 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
             />
             }
             <Text>{item?.name}</Text>
-            <Text>{item?.price}円</Text>    
-            <ConfirmButton buttonColor="red" onClick={onClickDiscardItem} disabled={item?.id === ""} alertText={"本当に廃棄しますか？"}>廃棄</ConfirmButton>
+            <Text>{item?.price}円</Text>  
+            <Flex>
+              <ConfirmButton buttonColor="red" onClick={onClickDiscardItem} disabled={item?.id === ""} alertText={"本当に廃棄しますか？"}>廃棄</ConfirmButton>
+              <Button onClick={() => onClickEditItem(item!.id)} ><SettingsIcon boxSize={8}/></Button>
+            </Flex>  
           </Stack>
         </ModalBody>
       </ModalContent>

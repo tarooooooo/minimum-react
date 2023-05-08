@@ -1,6 +1,7 @@
 import { Home } from "../components/pages/Home";
 import { ItemManagement } from "../components/pages/ItemManagement";
 import { CreateItem } from "../components/pages/CreateItem";
+import { EditItem } from "../components/pages/EditItem";
 import { Setting } from "../components/pages/Setting";
 import { NotFound } from "../components/pages/NotFound";
 import { Tutorial } from "../components/pages/Tutorial";
