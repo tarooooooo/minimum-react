@@ -8,6 +8,7 @@ import { homeRoutes } from "../router/HomeRoutes";
 import { HeaderLayout } from "../components/templates/HeaderLayout";
 import { CreateItem } from "../components/pages/CreateItem";
 import { categoryRoutes } from "../router/CategoryRoutes";
+import { itemRoutes } from "../router/ItemRoutes";
 
 export const Router: VFC = memo(() => {
   return (
@@ -25,6 +26,11 @@ export const Router: VFC = memo(() => {
             path='category'
           >
             {categoryRoutes.map((route) => (
+              <Route path={route.path} element={route.children}/>
+            ))}
+          </Route>
+          <Route path='item'>
+            {itemRoutes.map((route) => (
               <Route path={route.path} element={route.children}/>
             ))}
           </Route>
