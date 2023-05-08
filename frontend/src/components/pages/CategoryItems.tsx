@@ -22,7 +22,7 @@ export const CategoryItems: VFC = memo(() => {
 
   const { data: {items = [] } = {} } = useItemsQuery();
   const { data: {categories = [] } = {} } = useCategoriesQuery();
-  const onClickCategory = useCallback((id: string) => {navigate(`/home/category/${id}`)}, []);
+  const onClickCategory = useCallback((id: string) => {navigate(`/home/category/${id}`)}, [navigate]);
 
   const { id } = useParams();
   const { data: categoryData } = useCategoryQuery({ variables: { id: id! }})
@@ -33,10 +33,8 @@ export const CategoryItems: VFC = memo(() => {
       <Flex justifyContent="center" mt={3}>
         {categories.map((category, index) => {
           return (
-            <Button colorScheme='teal' variant='outline' textAlign="center" mx={1} my={5} backgroundColor='white'>
-              <Link key={index} onClick={() => onClickCategory(category.id)} style={{ textDecoration: 'none' }}>
-                {category.name}
-              </Link>
+            <Button colorScheme='teal' variant='outline' textAlign="center" mx={1} my={5} backgroundColor='white' onClick={() => onClickCategory(category.id)}>
+              {category.name}
             </Button> 
           )
         })}
