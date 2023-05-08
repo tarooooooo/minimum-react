@@ -26,7 +26,7 @@ export const EditItem: VFC = memo(() => {
     if (itemData && itemData.item) {
       reset({ name: itemData.item.name, price: itemData.item.price ?? 1000 });
     }
-  }, [])
+  }, [itemData])
 
   const navigate = useNavigate();
   
