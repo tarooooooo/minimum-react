@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_102725) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_115527) do
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.datetime "created_at", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_102725) do
   create_table "items", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "image"
+    t.string "dall_e_image"
     t.integer "price"
     t.string "state", default: "active", null: false
     t.datetime "created_at", null: false
