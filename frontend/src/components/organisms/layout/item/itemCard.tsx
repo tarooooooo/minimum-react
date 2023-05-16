@@ -7,11 +7,12 @@ type Props = {
   itemName: string;
   itemPrice: number | null | undefined;
   image: string;
+  dallEImage: string;
   onClick: (id: string) => void;
 };
 
 export const ItemCard: VFC<Props> = memo((props: Props) => {
-  const { itemName ,itemPrice, onClick, id, image } = props;
+  const { itemName ,itemPrice, onClick, id, image, dallEImage } = props;
 
   return (
     <Box 
@@ -25,23 +26,24 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
         onClick= {() => onClick(id)}
     >
       <Stack textAlign="center">
-        {image ? (
+        {dallEImage ? (
           <Img
             rounded='lg'
             boxSize="170px"
-            src={`data:image/png;base64,${image}`}
-            alt={itemName}
-            m="auto"
-          />
-        ) : 
-          <Img
-            rounded='lg'
-            boxSize="170px"
-            src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${id}/image.png`}
+            src={dallEImage}
             alt={itemName}
             m="auto"
             onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
           />
+        ) : 
+        <Img
+          rounded='lg'
+          boxSize="170px"
+          src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${id}/image.png`}
+          alt={itemName}
+          m="auto"
+          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
+        />
         }
         <Text fontSize="lg" fontWeight="bold">{itemName}</Text>
         <Text fontSize="sm" color="gray">{itemPrice}円</Text>
