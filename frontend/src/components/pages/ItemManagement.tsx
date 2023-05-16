@@ -50,7 +50,7 @@ export const ItemManagement: VFC = memo(() => {
         {items.map((item) => (
           <WrapItem key={item.id} mx="auto">
             <ItemCard itemName={item.name} itemPrice={item.price} onClick={onClickItem} id={item.id} image={item.image!} dallEImage={item.dallEImage!}></ItemCard>
-          </WrapItem>      
+          </WrapItem> 
         ))}
       </Wrap>
       <ItemDetail isOpen={isOpen} onClose={onClose} item={selectedItem!} />
