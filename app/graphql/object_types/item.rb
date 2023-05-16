@@ -5,6 +5,7 @@ module ObjectTypes
     field :id, ID, null: false
     field :name, String, null: false
     field :image, String, null: true
+    field :dall_e_image, String, null: true
     field :price, Integer
     field :category_id, ID, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
