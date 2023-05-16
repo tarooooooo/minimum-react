@@ -31,24 +31,25 @@ export const DiscardedItemDetails: VFC<Props> = memo((props: Props) => {
         <ModalCloseButton />
         <ModalBody>
           <Stack>
-            {item?.image ? (
-              <Image 
-                rounded='lg'
-                boxSize="170px"
-                src={`data:image/png;base64,${item?.image}`}
-                alt={item?.name}
-                m="auto"
-              />
-            ) : 
+            {item?.dallEImage ? (
               <Img
                 rounded='lg'
                 boxSize="170px"
-                src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${item?.id}/image.png`}
+                src={item.dallEImage}
                 alt={item?.name}
                 m="auto"
                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
               />
-            }
+            ) : (
+              <Img
+              rounded='lg'
+              boxSize="170px"
+              src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${item?.id}/image.png`}
+              alt={item?.name}
+              m="auto"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
+            />
+            )}
             <Text>{item?.name}</Text>
             <Text>{item?.price}円</Text>    
             <ConfirmButton buttonColor="teal" onClick={onClickRestoreItem} disabled={item?.id === ""} alertText={"本当にクローゼットに戻しますか？"}>リストア</ConfirmButton>

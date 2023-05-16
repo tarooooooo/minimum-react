@@ -7,6 +7,7 @@ export default gql`
       name
       price
       image
+      dallEImage
       categoryId
       createdAt
       updatedAt

@@ -36,16 +36,17 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
         <ModalCloseButton />
         <ModalBody>
           <Stack>
-            {item?.image ? (
-              <Image 
+            {item?.dallEImage ? (
+              <Img
                 rounded='lg'
                 boxSize="170px"
-                src={`data:image/png;base64,${item?.image}`}
+                src={item.dallEImage}
                 alt={item?.name}
                 m="auto"
+                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
               />
-            ) : 
-            <Img
+            ) : (
+              <Img
               rounded='lg'
               boxSize="170px"
               src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${item?.id}/image.png`}
@@ -53,7 +54,7 @@ export const ItemDetail: VFC<Props> = memo((props: Props) => {
               m="auto"
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
             />
-            }
+            )}
             <Text>{item?.name}</Text>
             <Text>{item?.price}円</Text>  
             <Flex>

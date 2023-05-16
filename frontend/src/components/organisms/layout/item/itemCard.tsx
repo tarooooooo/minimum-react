@@ -7,11 +7,12 @@ type Props = {
   itemName: string;
   itemPrice: number | null | undefined;
   image: string;
+  dallEImage: string;
   onClick: (id: string) => void;
 };
 
 export const ItemCard: VFC<Props> = memo((props: Props) => {
-  const { itemName ,itemPrice, onClick, id, image } = props;
+  const { itemName ,itemPrice, onClick, id, image, dallEImage } = props;
 
   return (
     <Box 
@@ -37,7 +38,7 @@ export const ItemCard: VFC<Props> = memo((props: Props) => {
           <Img
             rounded='lg'
             boxSize="170px"
-            src={`https://minimum-react-image.s3.ap-northeast-1.amazonaws.com/uploads/item/image/${id}/image.png`}
+            src={dallEImage}
             alt={itemName}
             m="auto"
             onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = ItemNoImage}
