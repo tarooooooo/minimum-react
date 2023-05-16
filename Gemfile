@@ -60,3 +60,4 @@ gem 'state_machine'
 gem 'carrierwave'
 gem 'carrierwave-base64'
 gem 'fog-aws'
+gem "ruby-openai"
