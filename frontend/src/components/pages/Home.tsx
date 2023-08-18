@@ -78,11 +78,10 @@ export const Home: VFC = memo(() => {
 
           <Box position="relative" width="100%">
             <AchievementProgress progress={calc_progress} outerR={150} strokeWidth={20} color="teal" />
-            <Box position="absolute" top="25%" right="39%">
+            <Box position="absolute" top="25%" right="0" left="0">
               <Text fontSize="80px">{calc_progress}%</Text>
             
               <Text fontSize='s' color="gray">全クローゼット使用率</Text>
-              <Divider borderColor="gray" borderBottomWidth="2px" />
             </Box>
           </Box>
         </Box>
